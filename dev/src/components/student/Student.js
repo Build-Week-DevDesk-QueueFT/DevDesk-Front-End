@@ -1,9 +1,61 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
+import StudentCard from "../student/StudentCard";
+import { UserContext } from "../../contexts/AppContext";
+import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import jwt from "jsonwebtoken";
 
-export default function App() {
+const postNewStudent = (newStudent, refreshStudent) => {
+  axiosWithAuth()
+    .post("/api/tickets", newStudent)
+    .then((res) => {
+      console.log(res.data);
+      refreshStudent();
+    })
+    .catch((err) => {
+      console.log(err, "Failed to post new student");
+    });
+};
+
+const Student = (props) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const secret = "keepitsecret,keepitsafe!";
+  let user;
+  jwt.verify(token, secret, (error, decodedToken) => {
+    user = decodedToken;
+  });
+  const [setUser] = useContext(UserContext);
+
+  const refreshStudent = (props) => {
+    axiosWithAuth()
+      .get("/api/tickets")
+      .then((res) => {
+        console.log(res);
+        setUser(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    refreshStudent();
+  }, []);
+
+  const submitStudent = (data) => {
+    console.log(data);
+    postNewStudent(
+      {
+        title: props.title,
+        description: props.description,
+        tried: props.tried,
+        category: props.category,
+      },
+      refreshStudent
+    );
+  };
+
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
   console.log(errors);
 
   return (
@@ -27,7 +79,6 @@ export default function App() {
           required: true,
           min: 2,
           maxLength: 128,
-          pattern: /^\S+@\S+$/i,
         })}
       />
       <input
@@ -39,5 +90,23 @@ export default function App() {
 
       <input type="submit" />
     </form>
-  );
+    <div>
+    
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+    <div className="studentList">
+        {console.log(student, "Student")}
+        {projects.map((project, index) => (
+            <StudentCard student={student} refreshStudent={refreshStudent} />
+        ))}
+    </div>
+</div>
+</div>
+
 }
+      
+  
+  
+  
+
+
+export default Student;

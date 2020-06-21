@@ -1,12 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const axiosWithAuth = () => {
-  // returns an "instance" of axios, with preconfigured configs
-  const token = JSON.parse(localStorage.getItem('token'));
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  console.log(token);
   return axios.create({
     headers: {
-      Authorization: token
+      Authorization: token,
     },
-    baseURL: 
+    baseURL: "https://desk-queue.herokuapp.com",
   });
 };

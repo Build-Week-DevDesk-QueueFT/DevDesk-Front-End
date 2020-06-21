@@ -1,32 +1,40 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 
 import Header from "./components/Header";
 
-import { AppProvider } from "./contexts/AppContext";
 import PrivateRouteOne from "./utils/PrivateRouteOne";
-import PrivateRoutetwo from "./utils/PrivateRouteTwo";
-
+import { UserContext } from "./contexts/AppContext";
 import "./App.css";
-import StudentDashboard from "./components/StudentDashBoard";
-import StaffDashboard from "./components/StaffDashBoard";
+import StudentDashBoard from "./components/StudentDashBoard";
+import StaffDashboard from "./components/StaffDashboard";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 
 function App() {
+  const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("id");
+
+    if (userId) {
+      axiosWithAuth()
+        .get(`/api/users/${Number(userId)}`)
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
   return (
-    <AppProvider>
-      <div className="App">
-        <Header />
-        <Route exact path="/" component={Login} />
-        <Route path="/Register" component={Register} />
-        <PrivateRouteOne path="/StaffDashboard" component={StaffDashboard} />
-        <PrivateRouteTwo
-          path="/StudentDashboard"
-          component={StudentDashboard}
-        />
-      </div>
-    </AppProvider>
+    <div className="App">
+      <Header />
+      <Route exact path="/" component={Login} />
+      <Route path="/Register" component={Register} />
+      <PrivateRouteOne path="/StaffDashboard" component={StaffDashboard} />
+      <PrivateRouteOne path="/StudentDashBoard" component={StudentDashBoard} />
+    </div>
   );
 }
 

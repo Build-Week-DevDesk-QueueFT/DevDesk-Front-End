@@ -2,44 +2,48 @@ import React, { useState } from "react";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import { useForm } from "react-hook-form";
 
-const deleteStudent = (id, refreshStudent) => {
-  axiosWithAuth()
-    .delete(`/api/tickets/${userId}`)
-    .then((res) => {
-      console.log("Student Deleted");
-      refreshStudent();
-    })
-    .catch((err) => {
-      console.log(err, "Failed to delete Student");
-    });
-};
-const finalizeProject = (id, refreshStudent, student, toggleEdit, edit) => {
-  axiosWithAuth()
-    .put(`/api/tickets/${userid}`, student)
-    .then((res) => {
-      console.log("Student Editted");
-      toggleEdit(!edit);
-      refreshStudent();
-    })
-    .catch((err) => {
-      console.log(err, "Failed to edit Student");
-    });
-};
-
-const ProjectCard = ({ student, refreshStudent }) => {
+const StudentTicketCard = ({ ticket, setTickets, tickets }) => {
   const [edit, toggleEdit] = useState(false);
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) =>
-    finalizeProject(user.id, refreshStudent, data, toggleEdit, edit);
+  const onSubmit = (data) => editTicket(ticket.id, data);
   console.log(errors);
+
+  const editTicket = (id, updatedTicket) => {
+    axiosWithAuth()
+      .put(`/api/tickets/${id}`, updatedTicket)
+      .then((res) => {
+        console.log("Ticket Editted");
+        setTickets(
+          tickets.map((ticket) => {
+            if (ticket.id === id) return updatedTicket;
+            return ticket;
+          })
+        );
+        toggleEdit(!edit);
+      })
+      .catch((err) => {
+        console.log(err, "Failed to edit Ticket");
+      });
+  };
+
+  const deleteTicket = (id) => {
+    axiosWithAuth()
+      .delete(`/api/tickets/${id}`)
+      .then((res) => {
+        console.log("Ticket Deleted");
+        setTickets(tickets.filter((ticket) => ticket.id !== id));
+      })
+      .catch((err) => {
+        console.log(err, "Failed to delete Student");
+      });
+  };
+
   return edit === false ? (
     <div>
       <h2>
-        {user.title} {user.description} {user.tried} {user.category}
+        {ticket.title} {ticket.description} {ticket.tried} {ticket.category}
       </h2>
-      <button onClick={() => deleteStudent(user.id, refreshStudent)}>
-        Delete
-      </button>
+      <button onClick={() => deleteTicket(ticket.id)}>Delete</button>
       <button onClick={() => toggleEdit(!edit)}>Edit</button>
     </div>
   ) : (
@@ -48,18 +52,18 @@ const ProjectCard = ({ student, refreshStudent }) => {
         <input
           type="text"
           placeholder="Title"
-          name="Title"
+          name="title"
           ref={register({ required: true, min: 2, maxLength: 80 })}
         />
         <textarea
-          name="Description"
+          name="description"
           placeholder="Description"
           ref={register({ required: true, max: 2, maxLength: 300 })}
         />
         <input
           type="text"
           placeholder="Tried"
-          name="Tried"
+          name="tried"
           ref={register({
             required: true,
             min: 2,
@@ -69,7 +73,7 @@ const ProjectCard = ({ student, refreshStudent }) => {
         <input
           type="text"
           placeholder="Category"
-          name="Category"
+          name="category"
           ref={register({ required: true, min: 2, maxLength: 128 })}
         />
 
@@ -81,4 +85,4 @@ const ProjectCard = ({ student, refreshStudent }) => {
   );
 };
 
-export default StudentCard;
+export default StudentTicketCard;

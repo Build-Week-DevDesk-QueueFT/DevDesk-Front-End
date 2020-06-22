@@ -91,22 +91,14 @@ const Student = (props) => {
       <input type="submit" />
     </form>
     <div>
-    
-    <div style={{display: 'flex', justifyContent: 'center'}}>
-    <div className="studentList">
-        {console.log(student, "Student")}
-        {projects.map((project, index) => (
+     <div className="studentList">
+       {student.map((student, index) => (
             <StudentCard student={student} refreshStudent={refreshStudent} />
         ))}
     </div>
-</div>
-</div>
-
+    </div>
+  
+       
 }
-      
-  
-  
-  
-
 
 export default Student;

@@ -30,14 +30,14 @@ const ProjectCard = ({ student, refreshStudent }) => {
   const [edit, toggleEdit] = useState(false);
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) =>
-    finalizeProject(project.id, refreshProjectList, data, toggleEdit, edit);
+    finalizeProject(user.id, refreshStudent, data, toggleEdit, edit);
   console.log(errors);
   return edit === false ? (
     <div>
       <h2>
-        {project.projectName} {project.projectType}
+        {user.title} {user.description} {user.tried} {user.category}
       </h2>
-      <button onClick={() => deleteProject(project.id, refreshProjectList)}>
+      <button onClick={() => deleteStudent(user.id, refreshStudent)}>
         Delete
       </button>
       <button onClick={() => toggleEdit(!edit)}>Edit</button>

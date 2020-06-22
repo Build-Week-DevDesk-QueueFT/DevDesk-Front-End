@@ -14,7 +14,8 @@ const Student = (props) => {
       .post("/api/tickets", newTicket)
       .then((res) => {
         console.log(res.data);
-        setTickets(res.data);
+        setAllTickets(res.data);
+        setTickets([...tickets, newTicket]);
       })
       .catch((err) => {
         console.log(err, "Failed to post new ticket");

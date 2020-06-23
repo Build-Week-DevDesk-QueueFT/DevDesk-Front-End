@@ -6,7 +6,8 @@ export default function header() {
     <header>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ display: "flex" }}>
-          <h2 class="logo">DevDesk-Queue</h2>
+
+          <h2 className="logo">DevDesk-Queue</h2>
         </div>
         <div style={{ width: "70%", display: "flex" }}>
           <nav>

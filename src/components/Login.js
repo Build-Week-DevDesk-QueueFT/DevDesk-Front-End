@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/AppContext";
 
 const postLogin = (credentials, match, setUser) => {
-  axiosWithAuth()
+  axios
     .post("/api/auth/login", credentials)
     .then((res) => {
-      localStorage.setItem("token", JSON.stringify(res.data.token));
+
+      localStorage.setItem("token", JSON.stringify(res.data.token)); //This should only be an axios request
       localStorage.setItem("id", res.data.id);
 
       setUser(res.data);

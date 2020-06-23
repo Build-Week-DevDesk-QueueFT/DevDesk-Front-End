@@ -12,7 +12,7 @@ const StudentTicketCard = ({ ticket, setTickets, tickets }) => {
     axiosWithAuth()
       .put(`/api/tickets/${id}`, updatedTicket)
       .then((res) => {
-        console.log("Ticket Editted");
+        console.log(res.data);
         setTickets(
           tickets.map((ticket) => {
             if (ticket.id === id) return updatedTicket;
@@ -30,11 +30,11 @@ const StudentTicketCard = ({ ticket, setTickets, tickets }) => {
     axiosWithAuth()
       .delete(`/api/tickets/${id}`)
       .then((res) => {
-        console.log("Ticket Deleted");
+        console.log(res);
         setTickets(tickets.filter((ticket) => ticket.id !== id));
       })
       .catch((err) => {
-        console.log(err, "Failed to delete Student");
+        console.log(err, "Failed to delete ticket");
       });
   };
 

@@ -30,7 +30,7 @@ const Student = (props) => {
         setTickets(res.data);
       })
       .catch((error) => {
-        console.dir(error);
+        console.log(error);
       });
   };
   const refreshAllTicket = (props) => {

@@ -3,6 +3,27 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/AppContext";
+import styled from 'styled-components';
+
+const LoginBox = styled.div `
+margin: 30px 40px 0px 380px;
+justify-content: center;
+background: blue;
+color: #f5f5f5;
+
+width: 40%;
+height: 90vh;
+border: 1px solid black;
+border-radius:  3px;
+`
+const StyleForm = styled.div`
+background: #8DB48E;
+margin: 0 auto;
+border-radius: 10%;
+padding: 20px;
+width: 50%;
+`
+
 
 const postLogin = (credentials, match, setUser) => {
   axios
@@ -32,9 +53,11 @@ const Login = () => {
   console.log(errors);
 
   return (
+    <LoginBox>
     <div className="background">
       <h1 style={{ color: "white" }}>Login</h1>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <StyleForm>
         <input
           className="forms"
           type="text"
@@ -51,9 +74,11 @@ const Login = () => {
         />
 
         <input className="forms" type="submit" />
-        <p></p>
+       </StyleForm> 
       </form>
+      
     </div>
+    </LoginBox>
   );
 };
 

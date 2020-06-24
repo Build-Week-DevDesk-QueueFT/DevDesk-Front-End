@@ -7,7 +7,7 @@ import TicketsCard from "../staff/TicketCard";
 import styled from "styled-components";
 
 const StudentTicketForm = styled.div`
-  margin: 30px 40px 0px 380px;
+  margin: 30px 40px 10% 380px;
   justify-content: center;
   background: #2d3142;
   color: black;
@@ -29,6 +29,10 @@ const Button = styled.button`
   height: 30px;
   width: 150px;
   radius: 20%;
+`;
+const H2 = styled.h2`
+  font-size: 2rem;
+  color: #4f5d75;
 `;
 
 const Student = (props) => {
@@ -132,7 +136,7 @@ const Student = (props) => {
           {allTickets.map((ticket) => {
             return <TicketsCard {...ticket} />;
           })}
-          <h3>My Tickets</h3>
+          <H2>My Tickets</H2>
           {tickets.map((ticket, index) => (
             <StudentTicketCard
               ticket={ticket}

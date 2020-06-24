@@ -57,37 +57,35 @@ const Login = () => {
   console.log(errors);
 
   return (
-    <div className="background">
-      <LoginBox>
-        <h1>Login</h1>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <InputField>
-            <input
-              className="forms"
-              type="text"
-              placeholder="User Name"
-              name="username"
-              ref={register({
-                required: true,
-                max: 15,
-                min: 2,
-                maxLength: 100,
-              })}
-            />
-            <input
-              className="forms"
-              type="password"
-              placeholder="Password"
-              name="password"
-              ref={register({ required: true, max: 20, min: 2 })}
-            />
+    <LoginBox>
+      <h1>Login</h1>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <InputField>
+          <input
+            className="forms"
+            type="text"
+            placeholder="User Name"
+            name="username"
+            ref={register({
+              required: true,
+              max: 15,
+              min: 2,
+              maxLength: 100,
+            })}
+          />
+          <input
+            className="forms"
+            type="password"
+            placeholder="Password"
+            name="password"
+            ref={register({ required: true, max: 20, min: 2 })}
+          />
 
-            <Button type="submit">Login</Button>
-            <p></p>
-          </InputField>
-        </form>
-      </LoginBox>
-    </div>
+          <Button type="submit">Login</Button>
+          <p></p>
+        </InputField>
+      </form>
+    </LoginBox>
   );
 };
 

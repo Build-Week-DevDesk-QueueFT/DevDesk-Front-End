@@ -11,6 +11,12 @@ import "./App.css";
 import StudentDashBoard from "./components/StudentDashBoard";
 import StaffDashboard from "./components/StaffDashboard";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
+import styled from "styled-components";
+
+const Title = styled.div`
+  font-size: 3rem;
+  margin: 5% 0;
+`;
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -30,6 +36,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Title style={{ color: "#4F5D75" }}>Devdesk</Title>
       <Route exact path="/" component={Login} />
       <Route path="/Register" component={Register} />
       <PrivateRouteOne path="/StaffDashboard" component={StaffDashboard} />

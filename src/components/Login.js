@@ -3,36 +3,40 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/AppContext";
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const LoginBox = styled.div `
-margin: 30px 40px 0px 380px;
-justify-content: center;
-background: blue;
-color: #f5f5f5;
-
-width: 40%;
-height: 90vh;
-border: 1px solid black;
-border-radius:  3px;
-`
-const StyleForm = styled.div`
-background: #8DB48E;
-margin: 0 auto;
-border-radius: 10%;
-padding: 20px;
-width: 50%;
-`
-
+const LoginBox = styled.div`
+  margin: 30px 40px 0px 380px;
+  justify-content: center;
+  background: #2d3142;
+  color: black;
+  width: 40%;
+  height: 50vh;
+  border: 4px solid #ef8354;
+  border-radius: 25%;
+  color: white;
+`;
+const InputField = styled.div`
+  flex-direction: column;
+  justify-content: space-betwen;
+  padding: 10px;
+  margin: 10% auto 10% auto;
+  width: 40%;
+`;
+const Button = styled.button`
+  background: #ef8354;
+  height: 30px;
+  width: 150px;
+  radius: 20%;
+`;
 
 const postLogin = (credentials, match, setUser) => {
   axios
-    .post("/api/auth/login", credentials)
+    .post("https://desk-queue.herokuapp.com/api/auth/login", credentials)
     .then((res) => {
-
       localStorage.setItem("token", JSON.stringify(res.data.token)); //This should only be an axios request
       localStorage.setItem("id", res.data.id);
-
+      console.log(credentials);
       setUser(res.data);
       if (res.data.is_helper) {
         match.push("/StaffDashboard");
@@ -54,30 +58,33 @@ const Login = () => {
 
   return (
     <LoginBox>
-    <div className="background">
-      <h1 style={{ color: "white" }}>Login</h1>
+      <h1>Login</h1>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <StyleForm>
-        <input
-          className="forms"
-          type="text"
-          placeholder="User Name"
-          name="username"
-          ref={register({ required: true, max: 15, min: 2, maxLength: 100 })}
-        />
-        <input
-          className="forms"
-          type="password"
-          placeholder="Password"
-          name="password"
-          ref={register({ required: true, max: 20, min: 2 })}
-        />
+        <InputField>
+          <input
+            className="forms"
+            type="text"
+            placeholder="User Name"
+            name="username"
+            ref={register({
+              required: true,
+              max: 15,
+              min: 2,
+              maxLength: 100,
+            })}
+          />
+          <input
+            className="forms"
+            type="password"
+            placeholder="Password"
+            name="password"
+            ref={register({ required: true, max: 20, min: 2 })}
+          />
 
-        <input className="forms" type="submit" />
-       </StyleForm> 
+          <Button type="submit">Login</Button>
+          <p></p>
+        </InputField>
       </form>
-      
-    </div>
     </LoginBox>
   );
 };

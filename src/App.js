@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Title style={{ color: "#2d3142" }}>Devdesk</Title>
+      <Title style={{ color: "#4F5D75" }}>Devdesk</Title>
       <Route exact path="/" component={Login} />
       <Route path="/Register" component={Register} />
       <PrivateRouteOne path="/StaffDashboard" component={StaffDashboard} />

@@ -9,7 +9,7 @@ const StudentBox = styled.div`
   background: #2d3142;
   color: black;
   width: 40%;
-  height: 50vh;
+  height: 70vh;
   border: 4px solid #ef8354;
   border-radius: 25%;
   color: white;

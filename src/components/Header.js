@@ -23,7 +23,7 @@ export default function header() {
               to={"StudentDashboard"}
               style={{ textDecoration: "none", color: "#ef8354" }}
             >
-              Student Dashboard
+              <h3>Student Dashboard</h3>
             </Link>
             <Link
               to={"StaffDashboard"}

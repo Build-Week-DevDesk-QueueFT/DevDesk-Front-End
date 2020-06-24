@@ -37,6 +37,51 @@ const Staff = () => {
       .then((res) => {
         console.log(res.data);
         setUserTickets([...userTickets, res.data[0]]);
+        setTickets(
+          tickets.map((t) => {
+            if (ticket.id === t.id) return res.data[0];
+            return t;
+          })
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+  const unAssignTicket = (ticket) => {
+    axiosWithAuth()
+      .put(`/api/tickets/${ticket.id}`, { ...ticket, assigned_to: 0 })
+      .then((res) => {
+        console.log(res.data);
+        setUserTickets(userTickets.filter((t) => t.id !== ticket.id));
+        setTickets(
+          tickets.map((t) => {
+            if (ticket.id === t.id) return res.data[0];
+            return t;
+          })
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+  const resolveTicket = (ticket) => {
+    axiosWithAuth()
+      .put(`/api/tickets/${ticket.id}`, {
+        ...ticket,
+        resolved: !ticket.resolved,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserTickets(
+          tickets.map((t) => {
+            if (ticket.id === t.id) return res.data[0];
+            return t;
+          })
+        );
+
+        setTickets(
+          tickets.map((t) => {
+            if (ticket.id === t.id) return res.data[0];
+            return t;
+          })
+        );
       })
       .catch((err) => console.log(err));
   };
@@ -46,15 +91,26 @@ const Staff = () => {
       {tickets.map((ticket) => {
         return (
           <StaffTicketCard
+            resolveTicket={resolveTicket}
+            user={user}
             key={ticket.id}
             ticket={ticket}
             assignTicket={assignTicket}
+            unAssignTicket={unAssignTicket}
           />
         );
       })}
       <H2>Assigned Tickets</H2>
       {userTickets.map((ticket) => {
-        return <StaffTicketCard key={ticket.id} ticket={ticket} />;
+        return (
+          <StaffTicketCard
+            user={user}
+            key={ticket.id}
+            ticket={ticket}
+            unAssignTicket={unAssignTicket}
+            resolveTicket={resolveTicket}
+          />
+        );
       })}
     </div>
   );

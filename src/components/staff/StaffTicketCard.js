@@ -22,9 +22,19 @@ const StaffTicketCard = (props) => {
           <button onClick={() => props.assignTicket(props.ticket)}>
             Assign
           </button>
+        ) : props.ticket.assigned_to == props.user.id ? (
+          <button onClick={() => props.unAssignTicket(props.ticket)}>
+            UnAssign
+          </button>
         ) : (
           <h2>Assigned!</h2>
         )}
+        {!props.ticket.resolved && props.ticket.assigned_to == props.user.id ? (
+          <button onClick={() => props.resolveTicket(props.ticket)}>
+            Resolve Ticket
+          </button>
+        ) : null}
+        <p> Is Ticket Resolved : {props.ticket.resolved.toString()}</p>
       </div>
     </Staff>
   );

@@ -1,6 +1,32 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
+
+const StudentBox = styled.div`
+  margin: 30px 40px 0px 380px;
+  justify-content: center;
+  background: #2d3142;
+  color: black;
+  width: 40%;
+  height: 50vh;
+  border: 4px solid #ef8354;
+  border-radius: 25%;
+  color: white;
+`;
+const StudentInput = styled.div`
+  flex-direction: column;
+  justify-content: space-betwen;
+  padding: 10px;
+  margin: 10% auto 10% auto;
+  width: 40%;
+`;
+const Button = styled.button`
+  background: #ef8354;
+  height: 30px;
+  width: 150px;
+  radius: 20%;
+`;
 
 const deleteStudent = (id, refreshStudent) => {
   axiosWithAuth()
@@ -44,37 +70,46 @@ const ProjectCard = ({ student, refreshStudent }) => {
     </div>
   ) : (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder="Title"
-          name="Title"
-          ref={register({ required: true, min: 2, maxLength: 80 })}
-        />
-        <textarea
-          name="Description"
-          placeholder="Description"
-          ref={register({ required: true, max: 2, maxLength: 300 })}
-        />
-        <input
-          type="text"
-          placeholder="Tried"
-          name="Tried"
-          ref={register({
-            required: true,
-            min: 2,
-            maxLength: 128,
-          })}
-        />
-        <input
-          type="text"
-          placeholder="Category"
-          name="Category"
-          ref={register({ required: true, min: 2, maxLength: 128 })}
-        />
+      <StudentBox>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <StudentInput>
+            <input
+              className=" forms"
+              type="text"
+              placeholder="Title"
+              name="Title"
+              ref={register({ required: true, min: 2, maxLength: 80 })}
+            />
+            <textarea
+              name="Description"
+              placeholder="Description"
+              ref={register({ required: true, max: 2, maxLength: 300 })}
+            />
+            <input
+              className=" forms"
+              type="text"
+              placeholder="Tried"
+              name="Tried"
+              ref={register({
+                required: true,
+                min: 2,
+                maxLength: 128,
+              })}
+            />
+            <input
+              className=" forms"
+              type="text"
+              placeholder="Category"
+              name="Category"
+              ref={register({ required: true, min: 2, maxLength: 128 })}
+            />
 
-        <input type="submit" />
-      </form>
+            <Button className="forms" type="submit">
+              Submit
+            </Button>
+          </StudentInput>
+        </form>
+      </StudentBox>
 
       <button onClick={() => toggleEdit(!edit)}>Cancel</button>
     </div>

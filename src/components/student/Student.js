@@ -4,6 +4,32 @@ import StudentTicketCard from "../student/StudentTicketCard";
 import { UserContext } from "../../contexts/AppContext";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import TicketsCard from "../staff/TicketCard";
+import styled from "styled-components";
+
+const StudentTicketForm = styled.div`
+  margin: 30px 40px 0px 380px;
+  justify-content: center;
+  background: #2d3142;
+  color: black;
+  width: 40%;
+  height: 50vh;
+  border: 4px solid #ef8354;
+  border-radius: 25%;
+  color: white;
+`;
+const StudentInput = styled.div`
+  flex-direction: column;
+  justify-content: space-betwen;
+  padding: 10px;
+  margin: 10% auto 10% auto;
+  width: 40%;
+`;
+const Button = styled.button`
+  background: #ef8354;
+  height: 30px;
+  width: 150px;
+  radius: 20%;
+`;
 
 const Student = (props) => {
   const [tickets, setTickets] = useState([]);
@@ -60,37 +86,46 @@ const Student = (props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(submitTicket)}>
-        <input
-          type="text"
-          placeholder="Title"
-          name="title"
-          ref={register({ required: true, min: 2, maxLength: 80 })}
-        />
-        <textarea
-          name="description"
-          placeholder="Description"
-          ref={register({ required: true, max: 2, maxLength: 300 })}
-        />
-        <input
-          type="text"
-          placeholder="Tried"
-          name="tried"
-          ref={register({
-            required: true,
-            min: 2,
-            maxLength: 128,
-          })}
-        />
-        <input
-          type="text"
-          placeholder="Category"
-          name="category"
-          ref={register({ required: true, min: 2, maxLength: 128 })}
-        />
+      <StudentTicketForm>
+        <form onSubmit={handleSubmit(submitTicket)}>
+          <StudentInput>
+            <input
+              className="forms"
+              type="text"
+              placeholder="Title"
+              name="title"
+              ref={register({ required: true, min: 2, maxLength: 80 })}
+            />
+            <textarea
+              name="description"
+              placeholder="Description"
+              ref={register({ required: true, max: 2, maxLength: 300 })}
+            />
+            <input
+              className="forms"
+              type="text"
+              placeholder="Tried"
+              name="tried"
+              ref={register({
+                required: true,
+                min: 2,
+                maxLength: 128,
+              })}
+            />
+            <input
+              className="forms"
+              type="text"
+              placeholder="Category"
+              name="category"
+              ref={register({ required: true, min: 2, maxLength: 128 })}
+            />
 
-        <input type="submit" />
-      </form>
+            <Button className="forms" type="submit">
+              Submit
+            </Button>
+          </StudentInput>
+        </form>
+      </StudentTicketForm>
 
       <div>
         <div className="studentList">

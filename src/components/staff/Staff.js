@@ -2,6 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import StaffTicketCard from "./StaffTicketCard";
 import { UserContext } from "../../contexts/AppContext";
+import styled from "styled-components";
+
+const H2 = styled.h2`
+  font-size: 2rem;
+  color: #4f5d75;
+`;
 
 const Staff = () => {
   const [tickets, setTickets] = useState([]);
@@ -46,7 +52,7 @@ const Staff = () => {
           />
         );
       })}
-      <h2>Assigned Tickets</h2>
+      <H2>Assigned Tickets</H2>
       {userTickets.map((ticket) => {
         return <StaffTicketCard key={ticket.id} ticket={ticket} />;
       })}

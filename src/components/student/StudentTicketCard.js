@@ -28,6 +28,14 @@ const Button = styled.button`
   radius: 20%;
 `;
 
+const S = styled.div`
+  border: 2px solid #ef8354;
+  background: #2d3142;
+  color: #bfc0c0;
+  width: 40%;
+  margin: 0 auto;
+`;
+
 const StudentTicketCard = ({ ticket, setTickets, tickets }) => {
   const [edit, toggleEdit] = useState(false);
   const { register, handleSubmit, errors } = useForm();
@@ -65,13 +73,15 @@ const StudentTicketCard = ({ ticket, setTickets, tickets }) => {
   };
 
   return edit === false ? (
-    <div>
-      <h2>
-        {ticket.title} {ticket.description} {ticket.tried} {ticket.category}
-      </h2>
-      <button onClick={() => deleteTicket(ticket.id)}>Delete</button>
-      <button onClick={() => toggleEdit(!edit)}>Edit</button>
-    </div>
+    <S>
+      <div>
+        <h2>
+          {ticket.title} {ticket.description} {ticket.tried} {ticket.category}
+        </h2>
+        <button onClick={() => deleteTicket(ticket.id)}>Delete</button>
+        <button onClick={() => toggleEdit(!edit)}>Edit</button>
+      </div>
+    </S>
   ) : (
     <div>
       <StudentTicketBox>

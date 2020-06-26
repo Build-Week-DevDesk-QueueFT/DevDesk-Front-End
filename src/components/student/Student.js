@@ -45,11 +45,7 @@ const Student = (props) => {
       .then((res) => {
         console.log(res.data);
         setAllTickets(res.data);
-        setTickets(
-          res.data.filter(
-            (ticket) => ticket.created_by == localStorage.getItem("id")
-          )
-        );
+        setTickets([...tickets, newTicket]);
       })
       .catch((err) => {
         console.log(err, "Failed to post new ticket");

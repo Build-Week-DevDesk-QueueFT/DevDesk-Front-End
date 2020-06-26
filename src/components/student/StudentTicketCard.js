@@ -49,7 +49,7 @@ const StudentTicketCard = ({ ticket, setTickets, tickets }) => {
         console.log(res.data);
         setTickets(
           tickets.map((ticket) => {
-            if (ticket.id === id) return res.data[0];
+            if (ticket.id === id) return updatedTicket;
             return ticket;
           })
         );
